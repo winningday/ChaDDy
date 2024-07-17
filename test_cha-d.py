@@ -1,4 +1,4 @@
-from project import load_pdf, call_ai, langchain_load
+from cha-d import load_pdf, call_ai, langchain_load
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 import os
 
