@@ -36,7 +36,7 @@ def load_pdf(pdf_name: str="test.pdf") -> str:
     :return: A string of all the text in the pdf
     :rtype: str
     """
-    if ".pdf" not in pdf_name:
+    if ".pdf" not in pdf_name.lower():
         sys.exit("Not a PDF file")
     reader = PdfReader(pdf_name)
     # number_of_pages = len(reader.pages)
@@ -119,7 +119,7 @@ def main():
     elif len(sys.argv) == 3 and sys.argv[1] == "-f":
         text = load_pdf(sys.argv[2])
     else:
-        print("Usage: \n python project.py -f filename.pdf\n",
+        print("Usage: \n chaDDy.py [-f FILENAME.pdf]\n",
               "Make sure the file is a PDF-type")
         sys.exit()
 
