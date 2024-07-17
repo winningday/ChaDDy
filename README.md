@@ -117,7 +117,7 @@ Suggested next steps:
     os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY"))
     ```
 4. We tried to prevent prompt-injection by copying the text with quadruple single-quotes, and triggering keywords that will 
-sys.exit. It's not super robust, but it seems to quit it if user asks non-related questions. One can try other methods, as well as coming up with more robust prompts. Or setting up more attack detections.
+sys.exit. It's not super robust, but it seems to quit it if user asks non-related questions. One can try other methods, as well as coming up with more robust prompts. Or setting up more attack detections. Furthermore, right now the program quits the first time a user asks something unrelated to the PDF. We could build some leniency and create a global variable called penalties that raises a flag (penalties += 1) each time the user asks unrelated questions, and eventually if we get 3 or more it raises a sys.exit. 
 5. Implement RAG by embedding in vector database, as there is a token-size limit right now, so can only work on small PDFs
 
 ## Testing the Code:
