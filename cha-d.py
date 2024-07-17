@@ -1,6 +1,6 @@
 """
 Simple usage:
-python project.py <path-and-name-of-pdf.pdf>
+python cha-d.py <path-and-name-of-pdf.pdf>
 
 if pdf not entered in command line, program will ask for name of pdf
 
