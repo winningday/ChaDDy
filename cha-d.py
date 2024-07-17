@@ -4,18 +4,15 @@ python cha-d.py <path-and-name-of-pdf.pdf>
 
 if pdf not entered in command line, program will ask for name of pdf
 
+Goal of the project is to create a chatbot that can answer questions
+from any pdf.
+Future updates will require importing a PDF, and embedding it in a vector database
+Then user can ask questions and get short answers to it.
+Need to learn how to do vector database embeddings
+Tutorials that helped during building this project:
+https://medium.com/@csv610/pdfassistant-a-simplified-chat-with-pdf-files-using-openai-api-7deb9cfd0865
+https://python.langchain.com/v0.2/docs/tutorials/llm_chain/
 """
-
-# Goal of the project is to create a chatbot that can answer questions
-# from any pdf
-# It will require importing a PDF, and embedding it in a vector database?
-# Then user can ask questions and get short answers to it.
-# Need to learn calls to OpenAI's API
-# Need to learn how to do vector database embeddings
-# Get a pdf tool to process to text
-# Tutorials that helped:
-# https://medium.com/@csv610/pdfassistant-a-simplified-chat-with-pdf-files-using-openai-api-7deb9cfd0865
-# https://python.langchain.com/v0.2/docs/tutorials/llm_chain/
 
 import sys
 from pypdf import PdfReader
@@ -30,7 +27,15 @@ from langchain_core.output_parsers import StrOutputParser
 # import time
 
 def load_pdf(pdf_name: str="test.pdf") -> str:
-    """ extracts all text from input PDF"""
+    """ 
+    Extracts all text from input PDF.
+    
+    :param: pdf_name: Name of PDF file in local folder
+    :type pdf_name: str with .pdf at the end.
+    :raise sys.exit if string does not contain .pdf
+    :return: A string of all the text in the pdf
+    :rtype: str
+    """
     if ".pdf" not in pdf_name:
         sys.exit("Not a PDF file")
     reader = PdfReader(pdf_name)
@@ -41,7 +46,17 @@ def load_pdf(pdf_name: str="test.pdf") -> str:
 
 
 def call_ai(user_input: str, messages_history: list) -> str:
-    """ Calls the AI and appends message history for continued chat. """
+    """ 
+    Calls the AI and appends message history for continued chat. 
+    
+    :param: user_input: User question to the AI
+    :param: messages_history: List of all the conversation between AI
+      and user, including PDF text and system prompts
+    :type user_input: str with the question or prompt from user
+    :type messages_history: list with SystemMessage, UserMessage, and AIMessage
+    :return: A string with OpenAI's response
+    :rtype: str
+    """
     if user_input != "":
         messages_history.append(HumanMessage(content=f"{user_input}"))
     model = ChatOpenAI(model="gpt-3.5-turbo-0125")
@@ -53,15 +68,19 @@ def call_ai(user_input: str, messages_history: list) -> str:
 
 
 def langchain_load() -> None:
-    # Loads all the API keys. Need to install them in terminal with:
-    # echo "export OPENAI_API_KEY='yourkey'" >> ~/.zshrc
-    # echo "export LANGCHAIN_API_KEY='yourkey'" >> ~/.zshrc
-    # source ~/.zshrc
-    #
-    # Finall confirm API is properly installed:
-    # echo $LANGCHAIN_API_KEY
-    # echo $OPENAI_API_KEY
-    # Should return the API key
+    """
+    Loads all the API keys. Need to install them in terminal with:
+    echo "export OPENAI_API_KEY='yourkey'" >> ~/.zshrc
+    echo "export LANGCHAIN_API_KEY='yourkey'" >> ~/.zshrc
+    source ~/.zshrc
+
+    Finall confirm API is properly installed:
+    echo $LANGCHAIN_API_KEY
+    echo $OPENAI_API_KEY
+    Should return the API key
+    :raises TypeError sys.exit: if API key's aren't stored in system environment
+    :return: None
+    """
 
     os.environ["LANGCHAIN_TRACING_V2"] = "true"
     try:
