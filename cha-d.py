@@ -66,8 +66,31 @@ def langchain_load() -> None:
     os.environ["LANGCHAIN_TRACING_V2"] = "true"
     try:
         os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY")
-    except: 
-    os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+    except TypeError:
+        sys.exit("""
+No LANGCHAIN_API_KEY detected, make sure to get an API key from https://api.smith.langchain.com/redoc
+and load it to your environment through your terminal with the following:
+
+    echo "export LANGCHAIN_API_KEY='yourkey'" >> ~/.zshrc
+
+    source ~/.zshrc
+
+and try again
+        """)
+    try:
+        os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY")
+    except TypeError:
+        sys.exit("""
+No OPENAI_API_KEY detected, make sure to get an API key from https://platform.openai.com/
+and load it to your environment through your terminal with the following:
+
+    echo "export OPENAI_API_KEY='yourkey'" >> ~/.zshrc
+
+    source ~/.zshrc
+
+and try again.
+        """)
+
 
 def main():
     if len(sys.argv) < 2:
