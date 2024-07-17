@@ -112,13 +112,13 @@ Suggested next steps:
 1. Prompt engineering improvements: Give it a persona, tell it to think in step-by-step, give context.
 2. Code efficiency, if do not like the langchain library, can fix to call OpenAI directly
 3. Can also remove langchain tracing, which is a way to see the results from the LLM through https://smith.langchain.com/
-4. We tried to prevent prompt-injection by copying the text with quadruple single-quotes, can try other methods, as well as coming up with more robust prompts. As well as setting up more attack detections.
-5. Implement RAG by embedding in vector database, as there is a token-size limit right now, so can only work on small PDFs
-
     ```python
     os.environ["LANGCHAIN_TRACING_V2"] = "true"
     os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY"))
     ```
+5. We tried to prevent prompt-injection by copying the text with quadruple single-quotes, can try other methods, as well as coming up with more robust prompts. As well as setting up more attack detections.
+6. Implement RAG by embedding in vector database, as there is a token-size limit right now, so can only work on small PDFs
+
 
 ## Sources:
 
