@@ -26,6 +26,26 @@ from langchain_core.output_parsers import StrOutputParser
 # import getpass
 # import time
 
+class Flags:
+    """
+    Flag system to prevent prompt-injections. Triggered by call_ai()
+    If user enters a questions the LLM thinks are not related to the PDF
+    A flag will be raised. Once 3 flags are raised the program will sys.exit
+
+    """
+    def __init__(self):
+        self._raised = 0
+    
+    @property
+    def raised(self):
+        return self._raised
+
+    def raises(self):
+        self._raised += 1
+    
+flags = Flags() #Initialize the flag system
+
+
 def load_pdf(pdf_name: str="test.pdf") -> str:
     """ 
     Extracts all text from input PDF.
@@ -64,7 +84,9 @@ def call_ai(user_input: str, messages_history: list) -> str:
     result = model.invoke(messages_history)
     ai_response = parser.invoke(result)
     if ai_response in "I'm here to summarize and answer questions based on the text you provide.":
-        sys.exit("\nPlease only ask questions about the PDF provided. This session has been closed.\n")
+        flags.raises()
+        if flags.raised >= 3:
+           sys.exit("\nPlease only ask questions about the PDF provided. This session has been closed.\n")
     messages_history.append(AIMessage(content=f"{ai_response}"))
     return ai_response
 

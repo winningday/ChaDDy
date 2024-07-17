@@ -31,6 +31,7 @@ def test_call_ai():
                         HumanMessage(content="Who earned it?"),
                         AIMessage(content='Marc Goodman earned the "CS50 Shirtificate" by completing CS50.'),]
     assert "Marc Goodman" in call_ai("Who got the shirtificate?", messages_history)
+    flag = 2 # Mock test of global flags used to prevent prompt-injections.
     with pytest.raises(SystemExit):
         call_ai("What's the meaning of life?", messages_history)
 
