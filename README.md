@@ -119,6 +119,7 @@ Suggested next steps:
 4. We tried to prevent prompt-injection by copying the text with quadruple single-quotes, and triggering keywords that will 
 sys.exit. It's not super robust, but it seems to quit it if user asks non-related questions, although occasinally it wants to quit even if a question is related to the PDF. So we put in a Flags class in place that gets triggered whenever it thinks the person isn't asking questions related to the PDF (through method flags.raises()). The system allows 3 flags before it sys.exit. One can try other methods, as well as coming up with more robust prompts. Or setting up more attack detections, but it's working decently so far.
 5. Implement RAG by embedding in vector database, as there is a token-size limit right now, so can only work on small PDFs
+6. Ideally setup a system to allow multiple PDFs, text files, word docs, and libraries and stores the info in a database for future access. Building up a library of content from which to get info from. ie like a GPT based on our knowledgebase
 
 ## Testing the Code:
 Pytest test file included, To run do the following:
