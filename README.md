@@ -120,6 +120,14 @@ Suggested next steps:
 6. Implement RAG by embedding in vector database, as there is a token-size limit right now, so can only work on small PDFs
 
 
+## Testing
+To run the tests with pytest, use:
+
+```python
+pytest test_cha-d.py
+```
+
+
 ## Sources:
 
 For more tutorials on using langchain and langsmith refer to:
