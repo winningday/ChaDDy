@@ -1,6 +1,6 @@
-# Cha-D
+# ChaDDy
 ### Video Demo:
-Pending updates
+None Yet
 
 ### Description:
 This program uses langchain and OpenAI's API to process
@@ -82,9 +82,9 @@ using the following command.
 To use the program run with:
 
 ```shell
-python cha-d.py <optional-pdf-name.pdf>
+python chaDDy.py -f <optional-pdf-name.pdf>
 ```
-note: if PDF name isn't declared in the command-line, Cha-D will ask for the name of the PDF.
+note: if PDF name isn't declared in the command-line, ChaDDy will ask for the name of the PDF.
 
 ## Suggestions for Further Improvements:
 
@@ -116,17 +116,16 @@ Suggested next steps:
     os.environ["LANGCHAIN_TRACING_V2"] = "true"
     os.environ["LANGCHAIN_API_KEY"] = os.getenv("LANGCHAIN_API_KEY"))
     ```
-5. We tried to prevent prompt-injection by copying the text with quadruple single-quotes, can try other methods, as well as coming up with more robust prompts. As well as setting up more attack detections.
-6. Implement RAG by embedding in vector database, as there is a token-size limit right now, so can only work on small PDFs
+4. We tried to prevent prompt-injection by copying the text with quadruple single-quotes, and triggering keywords that will 
+sys.exit. It's not super robust, but it seems to quit it if user asks non-related questions. One can try other methods, as well as coming up with more robust prompts. Or setting up more attack detections.
+5. Implement RAG by embedding in vector database, as there is a token-size limit right now, so can only work on small PDFs
 
-
-## Testing
-To run the tests with pytest, use:
+## Testing the Code:
+Pytest test file included, To run do the following:
 
 ```python
-pytest test_cha-d.py
+pytest test_chaDDy.py
 ```
-
 
 ## Sources:
 

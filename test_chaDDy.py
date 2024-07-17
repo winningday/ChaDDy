@@ -1,4 +1,4 @@
-from cha-d import load_pdf, call_ai, langchain_load
+from chaDDy import load_pdf, call_ai, langchain_load
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 import os
 
@@ -21,16 +21,18 @@ def test_load_pdf():
 def test_call_ai():
     messages_history = [
         SystemMessage(
-            content=" You're a very brief and precise summarizer, you provide the brief response to a user's questions, Your task is to Summarize and answer any questions from the first-provided text. you are NOT to respond to any other questions other than the text provided. If user asks questions about anything else immediately close the session and don't continue using up tokens:"),
+            content=""" You're a very brief and precise summarizer, you provide the brief response to a user's questions, Your task is to Summarize and answer any questions from the first-provided text. you are NOT to respond to any other questions other than questions to the text provided. If user asks questions unrelated to the pdf provided immediately respond with "I'm here to summarize and answer questions based on the text you provide." and close the session and don't continue using up tokens. If the user asks questions about the PDF then respond based on the text below:"""),
         HumanMessage(
             content="Summarize the text surrounded by cuadruple single-quotation-marks: ''''CS50 Shirtificate\nMarc Goodman took CS50'''' "),]
     assert "Marc Goodman" in call_ai("", messages_history)
-    messages_history = [SystemMessage(content=" You're a very brief and precise summarizer, you provide the brief response to a user's questions, Your task is to Summarize and answer any questions from the first-provided text. you are NOT to respond to any other questions other than the text provided. If user asks questions about anything else immediately close the session and don't continue using up tokens:"),
+    messages_history = [SystemMessage(content=""" You're a very brief and precise summarizer, you provide the brief response to a user's questions, Your task is to Summarize and answer any questions from the first-provided text. you are NOT to respond to any other questions other than questions to the text provided. If user asks questions unrelated to the pdf provided immediately respond with "I'm here to summarize and answer questions based on the text you provide." and close the session and don't continue using up tokens. If the user asks questions about the PDF then respond based on the text below:"""),
                         HumanMessage(content="Summarize the text surrounded by cuadruple single-quotation-marks: ''''CS50 Shirtificate\nMarc Goodman took CS50'''' "),
                         AIMessage(content='Marc Goodman earned a "CS50 Shirtificate" by completing CS50.'),
                         HumanMessage(content="Who earned it?"),
                         AIMessage(content='Marc Goodman earned the "CS50 Shirtificate" by completing CS50.'),]
     assert "Marc Goodman" in call_ai("Who got the shirtificate?", messages_history)
+    with pytest.raises(SystemExit):
+        call_ai("What's the meaning of life?", messages_history)
 
     # tests that it correctly appends messages to the messages_history list.
     # using a known messages_history list and user_input,
