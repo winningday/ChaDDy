@@ -1,6 +1,6 @@
 # Cha-D
 ### Video Demo:
-https://youtu.be/Y_E5pK-9RI4
+Pending updates
 
 ### Description:
 This program uses langchain and OpenAI's API to process
