@@ -19,6 +19,13 @@ def test_load_pdf():
 
 
 def test_call_ai():
+    """
+    tests that it correctly appends messages to the messages_history list.
+    using a known messages_history list and user_input,
+    checks that the list has been updated correctly.
+    also tests that it returns the expected output for a given input.
+    """
+    
     messages_history = [
         SystemMessage(
             content=""" You're a very brief and precise summarizer, you provide the brief response to a user's questions, Your task is to Summarize and answer any questions from the first-provided text. you are NOT to respond to any other questions other than questions to the text provided. If user asks questions unrelated to the pdf provided immediately respond with "I'm here to summarize and answer questions based on the text you provide." and close the session and don't continue using up tokens. If the user asks questions about the PDF then respond based on the text below:"""),
@@ -31,16 +38,17 @@ def test_call_ai():
                         HumanMessage(content="Who earned it?"),
                         AIMessage(content='Marc Goodman earned the "CS50 Shirtificate" by completing CS50.'),]
     assert "Marc Goodman" in call_ai("Who got the shirtificate?", messages_history)
+
+    flags = Flags()
+    flags.raises()
+    flags.raises()
+    flags.raises()
+    assert flags.raised == 3
+
     # Want to figure out a way to test the Flags system for Prompt Injection prevention. Not working right now.
-    # flags = Flags()
-    # flags._raised = 2 # Mock test of global flags used to prevent prompt-injections.
     # with pytest.raises(SystemExit):
     #     call_ai("What's the meaning of life?", messages_history)
 
-    # tests that it correctly appends messages to the messages_history list.
-    # using a known messages_history list and user_input,
-    # checks that the list has been updated correctly.
-    # also tests that it returns the expected output for a given input.
 
 def test_langchain_load():
     langchain_load()
