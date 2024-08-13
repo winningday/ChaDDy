@@ -15,6 +15,8 @@ https://python.langchain.com/v0.2/docs/tutorials/llm_chain/
 """
 
 import sys
+# import argparse
+# For future updates will use argparse to parse command line arguments.
 from pypdf import PdfReader
 import os
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
